@@ -12,6 +12,9 @@ def get_all_calification_from_object(content_object):
 
 def get_average_calification(content_object):
     all_califications = get_all_calification_from_object(content_object)
-    return sum(x.rating for x in all_califications)/all_califications.count()
+    if all_califications:
+        return sum(x.rating for x in all_califications)/all_califications.count()
+    else:
+        return 0
 
 
