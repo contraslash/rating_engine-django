@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load input_checker %}
+
+{% block specific-css %}
+
+    <link href="{% static 'rating_engine/bootstrap-star-rating/css/star-rating.min.css' %}" rel="stylesheet"/>
+{% endblock %}
+{% block content %}
+    <div class="container">
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for input in form %}
+            <div class="row">
+            {% if input.errors %}
+                {{ input.errors }}
+            {% endif %}
+                {%  if input|is_checkbox %}
+                    <div class="col s12">
+                        {{ input }}
+                        <label for="{{ input.auto_id }}">{{ input.label }}</label>
+                    </div>
+                {% elif input|is_select%}
+
+                    <div class="row">
+                        <div class="col s12 ">
+                            <label>{{ input.label }}</label>
+                            {{ input }}
+                        </div>
+                    </div>
+                {% elif input|is_file%}
+
+                    <div class="row">
+                        <div class="col s12 file-field input-field">
+                            <div class="btn white black-text">
+                                <label>{{ input.label }}</label>
+                                {{ input }}
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
+                        </div>
+
+                    </div>
+                {% else %}
+                    <div class="col s12 input-field">
+                        <label for="{{ input.name }}">{{ input.label }}</label>
+                        {{ input }}
+                    </div>
+                {% endif %}
+
+            </div>
+        {% endfor %}
+        <input type="submit" class="btn white black-text" value="{% trans 'create' %}">
+    </form>
+    </div>
+{% endblock %}
+{% block specific-js %}
+    <script type="application/javascript" src="{% static 'rating_engine/bootstrap-star-rating/js/star-rating.js' %}" ></script>
+    <script type="application/javascript" src="{% static 'rating_engine/bootstrap-star-rating/js/locales/es.js' %}" ></script>
+    <script type="application/javascript">
+        $(document).ready(function()
+        {
+            $("#id_rating").rating(
+            {
+                showClear: false,
+                size: 'xs',
+                showCaption: false,
+                step: 0.5
+            }
+            );
+        });
+    </script>
+{% endblock %}

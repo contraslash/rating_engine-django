@@ -6,6 +6,15 @@ class Calification(forms.ModelForm):
         model = calification_engine_models.Calification
 
         fields = (
-            'calification',
+            'rating',
             'opinion'
         )
+
+        widgets = {
+            'rating': forms.NumberInput(attrs={
+                'class': 'rating rating-loading'
+            }),
+            'opinion': forms.Textarea(attrs={
+                'class': 'materialize-textarea'
+            })
+        }

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django import http
 
 from base import views as base_views
 
@@ -8,6 +9,7 @@ from . import forms as rating_engine_forms
 
 
 class Rate(base_views.BaseCreateView):
+    template_name = "rating_engine/calification/create.html"
     model = rating_engine_models.Calification
     form_class = rating_engine_forms.Calification
 
@@ -23,6 +25,6 @@ class Rate(base_views.BaseCreateView):
         content_object = self.get_object()
         calification.content_object = content_object
         calification.save()
-        return self.get_success_url()
+        return http.HttpResponseRedirect(self.get_success_url())
 
 

@@ -16,7 +16,7 @@ class Calification(base_models.FullSlugBaseModel):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
-    calification_value = models.DecimalField(decimal_places=2, max_digits=3)
+    rating = models.DecimalField(decimal_places=2, max_digits=3)
     opinion = models.TextField(blank=True)
 
     SLUG_RANDOM_CHARS = 20

@@ -12,6 +12,6 @@ def get_all_calification_from_object(object):
 
 def get_average_calification(object):
     all_califications = get_all_calification_from_object(object)
-    return sum(x.calification_value for x in all_califications)/all_califications.count()
+    return sum(x.rating for x in all_califications)/all_califications.count()
 
 
