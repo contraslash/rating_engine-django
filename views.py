@@ -22,6 +22,8 @@ class Rate(base_views.BaseCreateView):
 
     def form_valid(self, form):
         calification = form.save(commit=False)
+        if self.request.user.is_authenticated():
+            calification.user_fk = self.request.user
         content_object = self.get_object()
         calification.content_object = content_object
         calification.save()

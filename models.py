@@ -4,6 +4,8 @@ from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 
+from django.contrib.auth import models as auth_models
+
 from base import models as base_models
 # Create your models here.
 
@@ -15,6 +17,8 @@ class Calification(base_models.FullSlugBaseModel):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
+
+    user_fk = models.ForeignKey(auth_models.User, null=True)
 
     rating = models.DecimalField(decimal_places=2, max_digits=3)
     opinion = models.TextField(blank=True)
